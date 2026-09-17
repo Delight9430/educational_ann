@@ -1,7 +1,8 @@
 
 from network_wrapper import Network_wrapper
 from data import get_two_gaussian_clusters
-# TODO: move charts to a seperate 
+from data import get_two_gaussian_circles
+
 def main():
 
     network = Network_wrapper("v", 2)
@@ -11,11 +12,10 @@ def main():
     network.add_output_neurons(1)
     
     # 4. Training Loop
-    epochs = 150
-    X, y = get_two_gaussian_clusters(num_points=150,
-                                     noise=4)
-    for epoch in range(1, epochs + 1):
-        network.iterate(X, y)
+    points, group = get_two_gaussian_circles(n_points=50,
+                                    noise=0.01 )
+    for _ in range(1, 150):
+        network.iterate(points, group)
     network.end()
 
 main()

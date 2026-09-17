@@ -49,6 +49,10 @@ class Network_wrapper:
     def iterate(self, data, key):
         if self.epoch == 0:
             self.start()
+            # TODO: update if this changes each iteration
+            cluster_1 = [p for p, m in zip(data, key) if m == 1.0]
+            cluster_2 = [p for p, m in zip(data, key) if m == 0.0]
+            self.chart.set_key(cluster_1, cluster_2)
         self.epoch += 1
         # Train for one epoch
         history = self.model.fit(data, key, epochs=1, verbose=0)
